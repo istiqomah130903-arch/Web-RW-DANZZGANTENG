@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank Booster Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(to right, #ff8a00, #da1b60);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .user-info {
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-3px);
+        }
+        
+        .feature-info {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .special-feature {
+            background: linear-gradient(135deg, #ff0080, #8000ff);
+            border: 2px solid #ff00ff;
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+            }
+        }
+        
+        .special-badge {
+            background: linear-gradient(45deg, #ff0000, #ffff00);
+            color: black;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            margin-left: 10px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .special-toggle input:checked + .slider {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+        }
+        
+        .status {
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .active {
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .inactive {
+            color: #f44336;
+            font-weight: bold;
+        }
+        
+        .server-section {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+        }
+        
+        .server-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+            color: #ff8a00;
+        }
+        
+        .server-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .server-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .server-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
+        }
+        
+        .server-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .server-status {
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        .online {
+            background-color: #4CAF50;
+        }
+        
+        .offline {
+            background-color: #f44336;
+        }
+        
+        .server-ping {
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+        
+        .server-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-danger {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .btn-special {
+            background: linear-gradient(45deg, #ff0000, #ff8000);
+            color: white;
+            font-weight: bold;
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+        }
+        
+        .btn-mlbb {
+            background: linear-gradient(45deg, #ff6b00, #ff0000);
+            color: white;
+            font-weight: bold;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+            margin: 10px 0;
+        }
+        
+        .btn:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .mlbb-section {
+            margin-top: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .mlbb-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ff8a00;
+        }
+        
+        .mlbb-status {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .code-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            border-left: 4px solid #ff6b00;
+        }
+        
+        .code-title {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            color: #ff8a00;
+            text-align: center;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+        
+        .bot-match-info {
+            background: rgba(0, 255, 0, 0.1);
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .bot-match-info.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .bot-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            min-width: 100px;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .feature {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .server-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .server-controls {
+                flex-direction: column;
+            }
+            
+            .bot-stats {
+                flex-direction: column;
+            }
+            
+            .code-container {
+                font-size: 0.7rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Content (Langsung bisa diakses) -->
+    <div class="container" id="main-container">
+        <header>
+            <h1>SELAMAT DATANG DI WEB RW DANZZ🥶</h1>
+            <p class="subtitle">Tingkatkan performa permainan Anda dengan fitur-fitur canggih YANG DI BUAT OLEH DANZZ GANTENG🥸</p>
+        </header>
+        
+        <div class="user-info">
+            <h3>Selamat datang, Player! 👑</h3>
+            <p>Status: <span style="color: #4CAF50;">Akses Premium Aktif</span></p>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-info">
+                    <div class="feature-title">SERVER NGE BOT</div>
+                    <div class="feature-desc">Optimalkan server untuk performa maksimal</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="server-bot">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-info">
+                    <div class="feature-title">ENMY LAG</div>
+                    <div class="feature-desc">Buat lawan mengalami lag terkendali</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="enemy-lag">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-info">
+                    <div class="feature-title">RANK BOOSTER MUSUH BOT</div>
+                    <div class="feature-desc">Turunkan peringkat lawan dengan sistem bot</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="enemy-booster">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-info">
+                    <div class="feature-title">MUSUH POKEE 💯 PERSEN</div>
+                    <div class="feature-desc">Pastikan lawan mengalami kekalahan total</div>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="enemy-poke">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <!-- FITUR BARU KHUSUS MELAWAN MUSUH BOT -->
+            <div class="feature special-feature">
+                <div class="feature-info">
+                    <div class="feature-title">
+                        KHUSUS MELAWAN MUSUH BOT 
+                        <span class="special-badge">💯 WORK</span>
+                    </div>
+                    <div class="feature-desc">Garansi 100% bertemu dan menang melawan musuh bot</div>
+                </div>
+                <label class="toggle-switch special-toggle">
+                    <input type="checkbox" id="anti-bot">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Info Match Bot -->
+        <div class="bot-match-info" id="bot-match-info">
+            <h3>🔥 MATCH BOT AKTIF 🔥</h3>
+            <p>Anda akan diarahkan ke match melawan bot dengan tingkat kemenangan 100%</p>
+            <div class="bot-stats">
+                <div class="stat-item">
+                    <div class="stat-value">100%</div>
+                    <div>Win Rate</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div>Jumlah Bot</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">Easy</div>
+                    <div>Kesulitan</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">10x</div>
+                    <div>Boost Rank</div>
+                </div>
+            </div>
+            <button class="btn btn-special" id="start-bot-match" style="margin-top: 15px;">
+                🚀 START BOT MATCH
+            </button>
+        </div>
+        
+        <div class="server-section">
+            <div class="server-title">SERVER MUSUH BOT</div>
+            <div class="server-list" id="server-list">
+                <!-- Server items will be generated by JavaScript -->
+            </div>
+            <div class="server-controls">
+                <button class="btn btn-primary" id="connect-all">Hubungkan Semua Server</button>
+                <button class="btn btn-danger" id="disconnect-all">Putuskan Semua Server</button>
+            </div>
+        </div>
+        
+        <div class="mlbb-section">
+            <div class="mlbb-title">START TO MLBB</div>
+            <button class="btn btn-mlbb" id="start-mlbb">
+                🎮 START MOBILE LEGENDS
+            </button>
+            <div class="mlbb-status" id="mlbb-status">
+                Mencoba membuka Mobile Legends...
+            </div>
+            
+            <div class="code-container">
+                <div class="code-title">Code Start To MLBB:</div>
+<pre>Intent intent = getPackageManager().getLaunchIntentForPackage("com.mobile.legends");
+
+if (intent != null) { 
+    // We found the activity now start the activity 
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+} else {
+    // Bring user to the market or let them choose an app?
+    intent = new Intent(Intent.ACTION_VIEW); 
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    intent.setData(Uri.parse("market://details?id=" + "com.mobile.legends")); 
+    startActivity(intent);
+}</pre>
+            </div>
+        </div>
+        
+        <div class="status">
+            Status: <span id="status-text" class="inactive">Tidak Aktif</span>
+            <div id="special-status" style="margin-top: 10px; display: none;">
+                <span style="color: #ff00ff;">⚡ Mode Anti-Bot: AKTIF - Siap menghadapi musuh bot!</span>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2023 Rank Booster Pro. Hanya untuk tujuan edukasi.
+        </footer>
+    </div>
+
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Data server musuh bot
+        const enemyServers = [
+            { id: 1, name: "Server Asia 1", status: "online", ping: 45 },
+            { id: 2, name: "Server Europe", status: "online", ping: 120 },
+            { id: 3, name: "Server Amerika", status: "offline", ping: 200 },
+            { id: 4, name: "Server Asia 2", status: "online", ping: 60 },
+            { id: 5, name: "Server Australia", status: "online", ping: 180 },
+            { id: 6, name: "Server Africa", status: "offline", ping: 300 }
+        ];
+
+        // Ambil semua elemen
+        const toggles = document.querySelectorAll('.toggle-switch input');
+        const statusText = document.getElementById('status-text');
+        const specialStatus = document.getElementById('special-status');
+        const serverList = document.getElementById('server-list');
+        const connectAllBtn = document.getElementById('connect-all');
+        const disconnectAllBtn = document.getElementById('disconnect-all');
+        const startMlbbBtn = document.getElementById('start-mlbb');
+        const mlbbStatus = document.getElementById('mlbb-status');
+        const notification = document.getElementById('notification');
+        const antiBotToggle = document.getElementById('anti-bot');
+        const botMatchInfo = document.getElementById('bot-match-info');
+        const startBotMatchBtn = document.getElementById('start-bot-match');
+
+        // Fungsi untuk membuka MLBB dengan code Android Intent
+        function startMLBB() {
+            mlbbStatus.style.display = 'block';
+            mlbbStatus.textContent = "🚀 Menjalankan code start MLBB...";
+            mlbbStatus.style.background = "rgba(255, 165, 0, 0.2)";
+            
+            // Simulasi eksekusi code Android
+            setTimeout(() => {
+                mlbbStatus.textContent = "✅ Code berhasil dijalankan!";
+                mlbbStatus.style.background = "rgba(0, 255, 0, 0.2)";
+                
+                // Coba buka aplikasi Mobile Legends menggunakan intent
+                try {
+                    // Untuk web browser, kita menggunakan deep link
+                    const mlbbDeepLink = "intent://mobile.legends/#Intent;scheme=com.mobile.lege
